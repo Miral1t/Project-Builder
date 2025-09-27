@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Resume Builder{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <a href="{% url 'index' %}">Головна</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">Профіль</a>
+            <a href="{% url 'logout' %}">Вихід</a>
+        {% else %}
+            <a href="{% url 'login' %}">Увійти</a>
+            <a href="{% url 'register' %}">Реєстрація</a>
+        {% endif %}
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
+{% extends 'resumes/base.html' %}
+{% block title %}Мої резюме{% endblock %}
+{% block content %}
+<h1>Мої резюме</h1>
+<a href="{% url 'resume-create' %}">Створити нове резюме</a>
+{% if resumes %}
+    <ul>
+    {% for r in resumes %}
+        <li><a href="{% url 'resume-detail' r.pk %}">{{ r.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>У вас ще немає резюме.</p>
+{% endif %}
+{% endblock %}
+{% extends 'resumes/base.html' %}
+{% block title %}Нове резюме{% endblock %}
+{% block content %}
+<h2>Створити / Редагувати резюме</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {{ formset.management_form }}
+    {% for f in formset %}
+        <div>
+            {{ f.as_p }}
+        </div>
+    {% endfor %}
+    <button type="submit">Зберегти</button>
+</form>
+{% endblock %}
+{% extends 'resumes/base.html' %}
+{% block title %}{{ resume.title }}{% endblock %}
+{% block content %}
+<h2>{{ resume.title }}</h2>
+<p>Створено: {{ resume.created_at }}</p>
+<h3>Досвід</h3>
+<ul>
+    {% for exp in experiences %}
+    <li>{{ exp.position }} у {{ exp.company }} ({{ exp.start_date }} – {% if exp.end_date %}{{ exp.end_date }}{% else %}дотепер{% endif %})<br>
+        {{ exp.description }}
+    </li>
+    {% empty %}
+    <li>Немає записів про досвід.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
+{% extends 'resumes/base.html' %}
+{% block title %}Реєстрація{% endblock %}
+{% block content %}
+<h2>Реєстрація</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Зареєструватися</button>
+</form>
+{% endblock %}
+{% extends 'resumes/base.html' %}
+{% block title %}Профіль{% endblock %}
+{% block content %}
+<h2>Профіль</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ p_form.as_p }}
+    <button type="submit">Оновити</button>
+</form>
+{% endblock %}
