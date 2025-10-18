@@ -16,20 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.urls import path
-from views import home
-from django.urls import path
-from views import export_resume_pdf
+from .views import home, export_resume_pdf
 
 urlpatterns = [
     path('resume/<int:pk>/pdf/', export_resume_pdf, name='export_resume_pdf'),
-]
-
-
-urlpatterns = [
-    path('', home, name='home')
-]
-
-urlpatterns = [
+    path('', home, name='home'),
     path('admin/', admin.site.urls),
 ]

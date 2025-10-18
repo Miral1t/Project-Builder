@@ -1,6 +1,6 @@
 from django.template.loader import get_template
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from xhtml2pdf import pisa
 from io import BytesIO
 from .models import Resume
@@ -20,3 +20,6 @@ def export_resume_pdf(request, pk):
     resume = get_object_or_404(Resume, pk=pk, user=request.user)
     context = {'resume': resume}
     return render_to_pdf('resumes/pdf_template.html', context)
+
+def home(request):
+    return render(request, 'resumes/base.html')
