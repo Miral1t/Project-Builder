@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Головна сторінка | Резюме-білдер</title>
+    <title>{% block title %}Мої резюме{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'resumes/static/static.css' %}">
 </head>
 <body>
+    {% block content %}
     <h1>Ласкаво просимо до Резюме-білдера!</h1>
     <p>Тут ви можете створювати, редагувати та експортувати свої резюме.</p>
+
+    <h2>Популярні шаблони резюме</h2>
+    <ul>
+        {% for resume in resumes %}
+            <li>{{ resume.title }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Оголошення</h2>
+    <ul>
+        {% for a in announcements %}
+            <li><strong>{{ a.title }}</strong>: {{ a.content|truncatechars:60 }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'announcement-list' %}">Всі оголошення</a>
+    {% endblock %}
 </body>
 </html>

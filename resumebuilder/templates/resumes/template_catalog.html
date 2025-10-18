@@ -1,0 +1,19 @@
+{% extends 'resumes/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Каталог шаблонів резюме</h2>
+  <div class="row">
+    {% for template in templates %}
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="{{ template.preview_url }}" class="card-img-top" alt="Шаблон">
+          <div class="card-body">
+            <h5 class="card-title">{{ template.name }}</h5>
+            <a href="{% url 'resume_create' template.pk %}" class="btn btn-primary">Вибрати</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

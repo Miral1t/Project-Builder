@@ -1,0 +1,14 @@
+{% extends 'resumes/base.html' %}
+{% block title %}Список резюме{% endblock %}
+{% block content %}
+<h1>Список резюме</h1>
+{% if resumes %}
+<ul>
+    {% for resume in resumes %}
+        <li>{{ resume.title }} ({{ resume.user.username }})</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>Резюме не знайдено.</p>
+{% endif %}
+{% endblock %}

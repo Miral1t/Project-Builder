@@ -1,0 +1,11 @@
+{% extends 'resumes/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>{% if form.instance.pk %}Редагувати оголошення{% else %}Створити оголошення{% endif %}</h2>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Зберегти</button>
+    <a href="{% url 'announcement_list' %}" class="btn btn-secondary">Назад</a>
+  </form>
+</div>
+{% endblock %}
