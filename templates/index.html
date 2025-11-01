@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartTask Planner</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Мій список завдань</h1>
+    <form action="/add" method="post">
+        <input type="text" name="task" placeholder="Нове завдання" required>
+        <button type="submit">Додати</button>
+    </form>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task }} <a href="/delete/{{ loop.index0 }}">❌</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
