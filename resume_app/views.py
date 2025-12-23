@@ -1,4 +1,4 @@
-rom django.template.loader import get_template
+from django.template.loader import get_template
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import login, authenticate, logout
