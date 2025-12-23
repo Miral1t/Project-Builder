@@ -1,5 +1,5 @@
 from rest_fremework import serializers
-from .models import Resume, Experience, Skill, Profile, Announcement
+from ..models import Resume, Experience, Skill, Profile, Announcement
 
 class ResumeSerializer(serializers.ModelSerializer):
     class Meta:

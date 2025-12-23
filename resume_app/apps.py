@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
-class ResumebuilderConfig(AppConfig):
+
+class ResumeAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'resumebuilder'
+    name = 'resume_app'
