@@ -2,12 +2,15 @@
 {% block title %}Список резюме{% endblock %}
 {% block content %}
 <h1>Список резюме</h1>
+<a href="{% url 'resume_create' %}" class="btn btn-primary mb-3">Створити нове резюме</a>
 {% if resumes %}
-<ul>
+<div class="list-group">
     {% for resume in resumes %}
-        <li>{{ resume.title }} ({{ resume.user.username }})</li>
+        <a href="{% url 'resume_edit' resume.pk %}" class="list-group-item list-group-item-action">
+            <h5 class="mb-1">{{ resume.title }}</h5>
+        </a>
     {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>Резюме не знайдено.</p>
 {% endif %}

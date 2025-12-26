@@ -19,15 +19,19 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="/">Головна</a>
         </li>
+       
+        {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'template_catalog' %}">Шаблони</a>
+          <a class="nav-link" href="{% url 'resume-list' %}">Мої резюме</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Увійти</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="{% url 'register' %}">Реєстрація</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+        {% endif %}
       </ul>
     </div>
   </div>
@@ -37,12 +41,7 @@
     <h1>Ласкаво просимо до Резюме-білдера!</h1>
     <p>Тут ви можете створювати, редагувати та експортувати свої резюме.</p>
 
-    <h2>Популярні шаблони резюме</h2>
-    <ul>
-        {% for resume in resumes %}
-            <li>{{ resume.title }}</li>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'resume_create' %}" class="btn btn-primary my-3 btn-lg">Створити нове резюме</a>
 
     <h2>Оголошення</h2>
     <ul>
