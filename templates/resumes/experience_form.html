@@ -1,0 +1,24 @@
+{% extends 'resumes/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>{% if form.instance.pk %}Редагувати досвід{% else %}Додати досвід{% endif %}</h2>
+
+  {% for experience in experiences %}
+    <div class="list-group mb-3">
+      <div class="list-group-item">
+        <h5 class="mb-1">{{ experience.position }} - {{ experience.company }}</h5>
+        <p class="mb-1">{{ experience.start_date }} - {{ experience.end_date|default:"Нині" }}</p>
+        <p class="mb-1">{{ experience.description }}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">Додати</button>
+   <a href="{% url 'skill_add' resume_pk=resume.pk %}" class="btn btn-secondary">Додати Навички</a>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'resumes/base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>{% if form.instance.pk %}Редагувати освіту{% else %}Додати освіту{% endif %}</h2>
+
+  {% for education in educations %}
+    <div class="list-group mb-3">
+      <div class="list-group-item">
+        <h5 class="mb-1">{{ education.institution }} - {{ education.degree }}</h5>
+        <p class="mb-1">{{ education.start_date }} - {{ education.end_date|default:"Нині" }}</p>
+        <p class="mb-1">{{ education.description }}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-success">Додати ще</button>
+    <a href="{% url 'resume_edit', pk=resume.pk %}" class="btn btn-secondary">Назад</a>
+    <a href="{% url 'experience_add' resume_pk=resume.pk %}" class="btn btn-secondary">Додати досвід</a>
+  </form>
+</div>
+{% endblock %}
+0
